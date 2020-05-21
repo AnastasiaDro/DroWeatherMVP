@@ -10,11 +10,15 @@ import com.example.droweathermvp.database.CityDao;
 import com.example.droweathermvp.interfaces.Observable;
 import com.example.droweathermvp.interfaces.Observer;
 import com.example.droweathermvp.rest.WeatherLoader;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 
 //Класс с данными, наблюдаемый
@@ -48,7 +52,7 @@ public class MyData implements Observable {
     ArrayList<String> searchedImgStringsList;
     ArrayList<String> searchedTempStringsList;
     ArrayList<String> datesList;
-    // ArrayList<String> searchedCitiesNamesList;
+
     //для базы данных
     CitiesDatabase db;
     ArrayList<City> citiesDataList;
@@ -72,9 +76,6 @@ public class MyData implements Observable {
         return searchedTempStringsList;
     }
 
-    //public ArrayList<String> getSearchedCitiesNamesList() {
-//        return searchedCitiesNamesList;
-//    }
 
     //сеттеры для получения искомых данных
     public void setSearchedImgStringsList(ArrayList<String> searchedImgStringsList) {
@@ -85,9 +86,6 @@ public class MyData implements Observable {
         this.searchedTempStringsList = searchedTempStringsList;
     }
 
-//    public void setSearchedCitiesNamesList(ArrayList<String> searchedCitiesNamesList) {
-//        this.searchedCitiesNamesList = searchedCitiesNamesList;
-//    }
 
     public void setCitiesList(ArrayList<String> citiesList) {
         this.citiesList = citiesList;
@@ -156,18 +154,18 @@ public class MyData implements Observable {
     }
 
     //Высчитать текущий час
-//    private int takeCurrentHour(Date currentDate) {
-//        DateFormat hourFormat = new SimpleDateFormat("HH", Locale.getDefault());
-//        String dateText = hourFormat.format(currentDate);
-//        currentHour = Integer.parseInt(dateText);
-//        return currentHour;
-//    }
+    private int takeCurrentHour(Date currentDate) {
+        DateFormat hourFormat = new SimpleDateFormat("HH", Locale.getDefault());
+        String dateText = hourFormat.format(currentDate);
+        currentHour = Integer.parseInt(dateText);
+        return currentHour;
+    }
 
     //геттер текущего часа
-//    public int getCurrentHour() {
-//        takeCurrentHour(currentDate);
-//        return currentHour;
-//    }
+    public int getCurrentHour() {
+        takeCurrentHour(currentDate);
+        return currentHour;
+    }
 
     public ArrayList<String> getCitiesList() {
         return citiesList;
@@ -183,73 +181,72 @@ public class MyData implements Observable {
     }
 
     //Получим или изменим navController
-  //  public NavController getNavController() {
-//        return navController;
-//    }
+    public NavController getNavController() {
+        return navController;
+    }
 
-//    public void setNavController(NavController navController) {
-//        this.navController = navController;
-//    }
+    public void setNavController(NavController navController) {
+        this.navController = navController;
+    }
 
 //    //Получим или изменим исключение
-//    public void setException(Exception exceptionWhileLoading) {
-//        this.exceptionWhileLoading = exceptionWhileLoading;
-//    }
+    public void setException(Exception exceptionWhileLoading) {
+        this.exceptionWhileLoading = exceptionWhileLoading;
+    }
 
-//    public void setExceptionWhileLoading(Exception exceptionWhileLoading, int exceptionNameId, int exceptionAdviceId) {
-//        this.exceptionWhileLoading = exceptionWhileLoading;
-//        this.exceptionNameId = exceptionNameId;
-//        this.exceptionAdviceId = exceptionAdviceId;
-//    }
+    public void setExceptionWhileLoading(Exception exceptionWhileLoading, int exceptionNameId, int exceptionAdviceId) {
+        this.exceptionWhileLoading = exceptionWhileLoading;
+        this.exceptionNameId = exceptionNameId;
+        this.exceptionAdviceId = exceptionAdviceId;
+    }
 
-//    public Exception getException() {
-//        return exceptionWhileLoading;
-//    }
-//
-//    public int getExceptionNameId() {
-//        return exceptionNameId;
-//    }
-//
-//    public int getExceptionAdviceId() {
-//        return exceptionAdviceId;
-//    }
+    public Exception getException() {
+        return exceptionWhileLoading;
+    }
 
-   // public ImageLoader getImageLoader() {
-//        return imageLoader;
-//    }
+    public int getExceptionNameId() {
+        return exceptionNameId;
+    }
+
+    public int getExceptionAdviceId() {
+        return exceptionAdviceId;
+    }
+
+    public ImageLoader getImageLoader() {
+        return imageLoader;
+    }
 
     public ArrayList<String> getDatesList() { return datesList; }
 
     //метод удаления последнего элемента из массива и сдвига всех элементов
     //используется в классе SearchAdapter
-//    public ArrayList deleteCopyAddNewList(String newString, ArrayList arrayList) {
-//        for (int i = 0; i < arrayList.size(); i++) {
-//            if (arrayList.get(i).equals(newString)) {
-//                arrayList.remove(i);
-//                searchedTempStringsList.remove(i);
-//                searchedImgStringsList.remove(i);
-//                datesList.remove(i);
-//                // lastLoadingDataList.remove(i);
-//            }
-//        }
-//        arrayList.add(newString);
-//        return arrayList;
-//    }
+    public ArrayList deleteCopyAddNewList(String newString, ArrayList arrayList) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i).equals(newString)) {
+                arrayList.remove(i);
+                searchedTempStringsList.remove(i);
+                searchedImgStringsList.remove(i);
+                datesList.remove(i);
+            }
+        }
+        arrayList.add(newString);
+        return arrayList;
+    }
 
-//    public ArrayList<String> lastToFirst(ArrayList<String> arrayList) {
-//        String lastItem = arrayList.get(arrayList.size() - 1);
-//        arrayList.add(0, lastItem);
-//        arrayList.remove(arrayList.size() - 1);
-//        return arrayList;
-//    }
-//
-//    public ArrayList addToListIfNotExist(ArrayList arrayList, String newString) {
-//        int count = checkListForExistElement(arrayList, newString);
-//        if (count == 0) {
-//            arrayList.add(newString);
-//        }
-//        return arrayList;
-//    }
+    public ArrayList<String> lastToFirst(ArrayList<String> arrayList) {
+        String lastItem = arrayList.get(arrayList.size() - 1);
+        arrayList.add(0, lastItem);
+        arrayList.remove(arrayList.size() - 1);
+        return arrayList;
+    }
+
+    public ArrayList addToListIfNotExist(ArrayList arrayList, String newString) {
+        int count = checkListForExistElement(arrayList, newString);
+        if (count == 0) {
+            arrayList.add(newString);
+        }
+        return arrayList;
+    }
 
     //метод выгрузки данных из БД
     public void loadDbDataToMyData() {
@@ -265,14 +262,14 @@ public class MyData implements Observable {
 
     //получим имена выгруженных городов
     //метод запускается в MainActivity
-//    public void getCitiesNamesFromDbData() {
-//        for (int i = 0; i < citiesDataList.size(); i++) {
-//            citiesList.add(citiesDataList.get(i).cityName);
-//            searchedTempStringsList.add(citiesDataList.get(i).cityTemp);
-//            searchedImgStringsList.add(citiesDataList.get(i).imgString);
-//            datesList.add(citiesDataList.get(i).lastLoadTime);
-//        }
-//    }
+    public void getCitiesNamesFromDbData() {
+        for (int i = 0; i < citiesDataList.size(); i++) {
+            citiesList.add(citiesDataList.get(i).cityName);
+            searchedTempStringsList.add(citiesDataList.get(i).cityTemp);
+            searchedImgStringsList.add(citiesDataList.get(i).imgString);
+            datesList.add(citiesDataList.get(i).lastLoadTime);
+        }
+    }
 
 
     //метод добавления города если его ещё не было
@@ -280,7 +277,7 @@ public class MyData implements Observable {
         int count = checkListForExistElement(citiesList, newName);
         if (count == 0) {
             //     citiesList.add(newName);
-            City city = new City();
+            final City city = new City();
             city.cityName = newName;
             new Thread(new Runnable() {
                 @Override
@@ -292,7 +289,7 @@ public class MyData implements Observable {
     }
 
     //метод удаления города из базы данных
-    public void deleteCityFromDb(String cityName) {
+    public void deleteCityFromDb(final String cityName) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -303,7 +300,7 @@ public class MyData implements Observable {
     }
 
     //добавляем данные города, создавая новый поток
-    public void addCityDataToDb(String cityName, String temp, String lastLoadTime, String imgString) {
+    public void addCityDataToDb(final String cityName, final String temp, final String lastLoadTime, final String imgString) {
         //проверим массив на пустоту
         if (citiesDataList.size() != 0) {
             new Thread(new Runnable() {
@@ -318,23 +315,23 @@ public class MyData implements Observable {
     }
 
     //проверка массива на повторы элемента и подсчёт, сколько раз он повторился
-//    private int checkListForExistElement(ArrayList arrayList, String newString) {
-//        int count = 0;
-//        System.out.println(arrayList.size());
-//        for (int i = 0; i < arrayList.size(); i++) {
-//            if (arrayList.get(i).equals(newString)) {
-//                count++;
-//            }
-//        }
-//        return count;
-//    }
+    private int checkListForExistElement(ArrayList arrayList, String newString) {
+        int count = 0;
+        System.out.println(arrayList.size());
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i).equals(newString)) {
+                count++;
+            }
+        }
+        return count;
+    }
 
-//    public void lastToFirstAllArrays(){
-//        lastToFirst(searchedTempStringsList);
-//        lastToFirst(searchedImgStringsList);
-//        lastToFirst(citiesList);
-//        lastToFirst(datesList);
-//    }
+    public void lastToFirstAllArrays(){
+        lastToFirst(searchedTempStringsList);
+        lastToFirst(searchedImgStringsList);
+        lastToFirst(citiesList);
+        lastToFirst(datesList);
+    }
 }
 
 
