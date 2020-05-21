@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.droweathermvp.R;
 import com.example.droweathermvp.interfaces.FragmentMethods;
 import com.example.droweathermvp.interfaces.Observer;
+import com.example.droweathermvp.model.MyData;
 //константы со значениями для массивов данных (время, утро, день, вечер)
 import static com.example.droweathermvp.ui.home.WeekConstants.*;
 
@@ -36,11 +37,15 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
 
     //Parser, ищущий индексы для забора данных и данные
     private WeekDataPresenter weekDataP;
-
+    private MyData myData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //TODO придумать как убрать нахрен отсюда модель
+
+        myData = MyData.getInstance();
+        myData.registerObserver(this);
         weekDataP = new WeekDataPresenter();
     }
 
@@ -123,6 +128,6 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        myData.removeObserver(this);
+       // myData.removeObserver(this);
     }
 }

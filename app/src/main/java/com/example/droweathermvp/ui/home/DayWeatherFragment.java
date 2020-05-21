@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.droweathermvp.R;
 import com.example.droweathermvp.interfaces.FragmentMethods;
 import com.example.droweathermvp.interfaces.Observer;
+import com.example.droweathermvp.model.Constants;
+import com.example.droweathermvp.model.MyData;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.HashMap;
@@ -39,30 +41,34 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     private SimpleDraweeView thSoonDraweeView;
 
 
-//    String[] firstDataArr;
-//    String[] secondDataArr;
-//    String[] thirdDataArr;
+    String[] firstDataArr;
+    String[] secondDataArr;
+    String[] thirdDataArr;
 
     private String temp;
     private String descriptString;
     private String iconString;
 
-//    private MyData myData;
+    private MyData myData;
+
+    private DayDataPresenter dayDataP;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //получаем аргументы назад
         //... место для аргументов
-//        myData = MyData.getInstance();
-//        myData.registerObserver(this);
+        myData = MyData.getInstance();
+        myData.registerObserver(this);
+        //создаём презентер
+        dayDataP = new DayDataPresenter();
     }
 
     //создаем View
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_day_weather, container, false);
         findViews(view);
-        //updateViewData();
         return view;
     }
 
@@ -92,16 +98,15 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
 
     @Override
     public void updateViewData() {
-   //     setWeatherValuesToTextViews();
+     setWeatherValuesToTextViews();
     }
 
     //Ставить текст
-//    public void setWeatherValuesToTextViews() {
-//        final Handler handler = new Handler();
-//        // do{} while (myData.getWeatherRequestIsDone()==false);
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
+    public void setWeatherValuesToTextViews() {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
 //                HashMap<Integer, String[]> curHashMap = myData.getAllWeatherDataHashMap();
 //                try {
 //                    //Через три часа
@@ -134,13 +139,13 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
 //                } catch (NullPointerException e) {
 //                    e.printStackTrace();
 //                }
-//            }
-//        });
-//    }
+            }
+        });
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-       // myData.removeObserver(this);
+       myData.removeObserver(this);
     }
 }
