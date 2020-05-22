@@ -38,6 +38,9 @@ public class HomeFragment extends Fragment implements ActivMethods {
     private HomeViewModel homeViewModel;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        //получим Активити
+        mainActivity = (AppCompatActivity) this.getActivity();
+
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);

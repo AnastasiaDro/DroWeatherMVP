@@ -5,6 +5,8 @@ import android.app.Application;
 import androidx.room.Room;
 
 import com.example.droweathermvp.database.CitiesDatabase;
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 public class App extends Application {
 
     public static App instance;
@@ -19,6 +21,8 @@ public class App extends Application {
                 .build();
         //чтобы не пересоздавался myData
         myData = MyData.getInstance();
+        //инициализиируем Fresco
+        Fresco.initialize(this);
     }
 
     public static App getInstance() {
