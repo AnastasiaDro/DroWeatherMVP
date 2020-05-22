@@ -1,5 +1,7 @@
 package com.example.droweathermvp.ui.home;
 
+import android.util.Log;
+
 import com.example.droweathermvp.interfaces.FrObseravable;
 import com.example.droweathermvp.interfaces.FrObserver;
 import com.example.droweathermvp.interfaces.Observer;
@@ -64,8 +66,7 @@ public class WeekDataPresenter implements Observer, FrObseravable {
         indexesForFourDaysList = new ArrayList();
         twentyFourHours = 24;
         timeStep = 3;
-        //TODO можно потом это вынести в отдельный поток
-        //выгружаем данные из модели для последующей обработки
+        myData.registerObserver(this);
     }
 
     //выгружаем данные из модели для последующей обработки

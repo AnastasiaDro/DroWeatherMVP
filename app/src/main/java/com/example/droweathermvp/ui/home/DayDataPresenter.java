@@ -25,7 +25,7 @@ public class DayDataPresenter implements Observer, FrObseravable {
 
     public DayDataPresenter(){
         myData = MyData.getInstance();
-
+        myData.registerObserver(this);
     }
 
 //получим массивы данных для всех трех времен этого дня из MyData

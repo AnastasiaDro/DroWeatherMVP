@@ -40,17 +40,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, FrO
     private SimpleDraweeView sSoonDraweeView;
     private SimpleDraweeView thSoonDraweeView;
 
-
-    String[] firstDataArr;
-    String[] secondDataArr;
-    String[] thirdDataArr;
-
-    private String temp;
-    private String descriptString;
-    private String iconString;
-
-    private MyData myData;
-
     private DayDataPresenter dayDataP;
     private ImageLoader imageLoader;
 

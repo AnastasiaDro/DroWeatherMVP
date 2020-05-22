@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <com.geekbrains.anasdroweather2.ui.home.ThermometerView
+    <com.example.droweathermvp.ui.ThermometerView
         android:id="@+id/thermometerView"
         android:layout_width="40dp"
         android:layout_height="130dp"
