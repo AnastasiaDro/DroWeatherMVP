@@ -133,20 +133,17 @@ public class WeekDataPresenter implements Observer, FrObseravable {
 
     //массив данных для текстВью первого дня
     public String [] takeFirstDayDataForTVArr(){
-        String [] firstDayDataForTVArr =  takeDayDataArr(fstDayMorArr, fstDayAftArr, fstDayEvArr);
-       return firstDayDataForTVArr;
+        return takeDayDataArr(fstDayMorArr, fstDayAftArr, fstDayEvArr);
     }
 
     //массив  данных для текствью для второго дня
     public String [] takeSecondDayDataForTVArr(){
-        String [] secondDayDataForTVArr =  takeDayDataArr(scndDayMorArr, scndDayAftArr, scndDayEvArr);
-        return secondDayDataForTVArr;
+        return takeDayDataArr(scndDayMorArr, scndDayAftArr, scndDayEvArr);
     }
 
     //массив  данных для текстВью третьего дня
     public String [] takeThirdDayDataForTVArr(){
-        String [] thirdDayDataForTVArr =  takeDayDataArr(thrdDayMorArr, thrdDayAftArr, thrdDayEvArr);
-        return thirdDayDataForTVArr;
+        return takeDayDataArr(thrdDayMorArr, thrdDayAftArr, thrdDayEvArr);
     }
 
     //получение данных для textView для конкретного дня из от общего массива данных этого дня
@@ -163,15 +160,11 @@ public class WeekDataPresenter implements Observer, FrObseravable {
         return dataForTVArr;
     }
 
+    //установить фрагмент-наблюдатель
     @Override
     public void setObserver(com.example.droweathermvp.interfaces.FrObserver frObserver) {
         this.frObserver = frObserver;
     }
-
-//    @Override
-//    public void removeObserver(com.example.droweathermvp.interfaces.FrObserver frObserver) {
-//        this.frObserver = null;
-//    }
 
     //уведомляет фрагмент-наблюдатель
     @Override
@@ -179,9 +172,10 @@ public class WeekDataPresenter implements Observer, FrObseravable {
         frObserver.updateViewData();
     }
 
-    //срабатывает при изменении данных в MyData
+    //когда MyData говорит, что изменилась, на самом деле нужно только при вводе в строку поиска,
+    // если на этом фрагменте находишься
     @Override
-    public void updateViewData() {
+    public void updateData() {
         getDataFromModel();
         notifyFrObserver();
     }

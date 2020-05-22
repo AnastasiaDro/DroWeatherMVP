@@ -149,7 +149,7 @@ public class MyData implements Observable {
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {
-            observer.updateViewData();
+            observer.updateData();
         }
     }
 

@@ -1,57 +1,89 @@
 package com.example.droweathermvp.ui.home;
 
+import static com.example.droweathermvp.ui.home.DayConstants.*;
+
+import com.example.droweathermvp.interfaces.FrObseravable;
+import com.example.droweathermvp.interfaces.FrObserver;
+import com.example.droweathermvp.interfaces.Observer;
+import com.example.droweathermvp.model.Constants;
 import com.example.droweathermvp.model.MyData;
+
 
 import java.util.HashMap;
 
-public class DayDataPresenter {
+
+public class DayDataPresenter implements Observer, FrObseravable {
+    private MyData myData;
+    //фрагмент-обсёрвер, из интерфейса FrObserver
+    //так мы избегаем исользования неJava-классов Фрагментов в коде
+    private FrObserver frObserver;
 
     HashMap<Integer, String[]> curHashMap;
-    String[] firstDataArr;
-    String[] secondDataArr;
-    String[] thirdDataArr;
+    private String[] firstDataArr;
+    private String[] secondDataArr;
+    private String[] thirdDataArr;
 
-    private String temp;
-    private String descriptString;
-    private String iconString;
+    public DayDataPresenter(){
+        myData = MyData.getInstance();
 
-    private MyData myData;
+    }
 
+//получим массивы данных для всех трех времен этого дня из MyData
+    private void getAllDataArrs() {
+        curHashMap = myData.getAllWeatherDataHashMap();
+        //Через три часа
+        firstDataArr = curHashMap.get(DAY_FIRST_DATA_KEY_IN_HASHMAP);
+        //Через 6 часов
+        secondDataArr = curHashMap.get(DAY_SECOND_DATA_KEY_IN_HASHMAP);
+        //Через 9 часов
+        thirdDataArr = curHashMap.get(DAY_THIRD_DATA_KEY_IN_HASHMAP);
+    }
 
+    //сформируем выходной массив данных для установки в TextView в классе-наблюдателе
+    private String[] getDataArrayForTime(String[] timeDataArr){
+        String [] dataArr = new String[4];
+        dataArr[TIME] = timeDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(10, 16);
+        dataArr[TEMP] = timeDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
+        dataArr[DESCRIPT_STRING]  = timeDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
+        dataArr[ICON_STRING]= timeDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
+        return dataArr;
+    }
 
+    //получить первый массив данных (погоду через 3 часа)
+    public String[] getAfterThreeHoursWeather(){
+        return getDataArrayForTime(firstDataArr);
+    }
 
+    //получить второй массив данных (погоду через 6 часов)
+    public String[] getAfterSixHoursWeather(){
+        return getDataArrayForTime(secondDataArr);
+    }
 
-    HashMap<Integer, String[]> curHashMap = myData.getAllWeatherDataHashMap();
-//                try {
-//                    //Через три часа
-//                    firstDataArr = curHashMap.get(DAY_FIRST_DATA_KEY_IN_HASHMAP);
-//                    fSoonTimeText.setText(firstDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(10, 16));
-//                    temp = firstDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
-//                    fSoonTempText.setText(temp);
-//                    descriptString = firstDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
-//                    fDescriptText.setText(descriptString);
-//                    iconString = firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
-//                    myData.getImageLoader().loadDraweeImage(fSoonDraweeView, firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
-//                    //Через 6 часов
-//                    secondDataArr = curHashMap.get(DAY_SECOND_DATA_KEY_IN_HASHMAP);
-//                    sSoonTimeText.setText(secondDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(10, 16));
-//                    temp = secondDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
-//                    sSoonTempText.setText(temp);
-//                    descriptString = secondDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
-//                    sDescriptText.setText(descriptString);
-//                    iconString = secondDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
-//                    myData.getImageLoader().loadDraweeImage(sSoonDraweeView, secondDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
-//                    //Через 9 часов
-//                    thirdDataArr = curHashMap.get(DAY_THIRD_DATA_KEY_IN_HASHMAP);
-//                    thSoonTimeText.setText(thirdDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(10, 16));
-//                    temp = thirdDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
-//                    thSoonTempText.setText(temp);
-//                    descriptString = thirdDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
-//                    thDescriptText.setText(descriptString);
-//                    iconString = thirdDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
-//                    myData.getImageLoader().loadDraweeImage(thSoonDraweeView, thirdDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
-//                } catch (NullPointerException e) {
-//                    e.printStackTrace();
-//                }
+    //получить третий массив данных (погоду через 9 часов)
+    public String[] getAfterNineHoursWeather(){
+        return getDataArrayForTime(thirdDataArr);
+    }
+
+    //установить фрагмент-наблюдатель
+    @Override
+    public void setObserver(FrObserver observer) {
+        this.frObserver = observer;
+    }
+
+    //уведомить наблюдателя
+    @Override
+    public void notifyFrObserver() {
+        frObserver.updateViewData();
+    }
+
+    //когда MyData говорит, что изменилась, на самом деле нужно только при вводе в строку поиска,
+    // если на этом фрагменте находишься
+    @Override
+    public void updateData() {
+        getAllDataArrs();
+        if (frObserver != null) {
+            notifyFrObserver();
+        }
+    }
 
 }

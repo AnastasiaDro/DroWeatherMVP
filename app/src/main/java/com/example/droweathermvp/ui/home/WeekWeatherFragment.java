@@ -22,8 +22,7 @@ import static com.example.droweathermvp.ui.home.WeekConstants.*;
 public class WeekWeatherFragment extends Fragment implements FragmentMethods, FrObserver {
 
     //TextView по дням недели
-    //TextView для времени и температур по дням и времени суток
-    //первый день
+
     private TextView [] firstDayTVArr;
     //первый элемент - время (дата)
     //второй - температура утром
@@ -42,7 +41,6 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Fr
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO придумать как убрать нахрен отсюда модель
         weekDataP = new WeekDataPresenter();
         weekDataP.setObserver(this);
     }
@@ -100,8 +98,6 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Fr
         ft.commit();
     }
 
-    //TODO нужно, чтобы данные обновлялись не тут, а сперва в WeekDataPresenter
-    //Пока сделала отдельный метод для забора данных из модели... ух
     @Override
     public void updateViewData() {
         setWeatherValuesToTextViews();
@@ -118,12 +114,4 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Fr
             }
         });
     }
-
-    //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
-    // его из этого списка удалить
-    //уже не надо))) т.к. у weekDataPresenter-а только один наблюдатель по умолчанию
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//    }
 }
