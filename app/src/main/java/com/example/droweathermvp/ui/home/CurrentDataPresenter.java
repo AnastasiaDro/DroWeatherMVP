@@ -59,6 +59,7 @@ public class CurrentDataPresenter implements Observer, FrObseravable {
     public void updateData() {
         getAllDataArrs();
         notifyFrObserver();
+        myData.sendDataToDb(dataArr[CURRENT_TEMP], dataArr[CURRENT_TIME], dataArr[CURRENT_ICON_STRING]);
     }
 
     //TODO вынести в отдельный метод или класс загрузку в MyData
@@ -75,9 +76,7 @@ public class CurrentDataPresenter implements Observer, FrObseravable {
 //    //внесем данные о температуре и последнем загруженном времени в базу данных
 //    //внутри этого метода мы создаём новый поток
 //                    myData.addCityDataToDb(myData.getCurrentCity(), forTemp, currentTime, iconString);
-//    //для изменения цвета полоски в градуснике
-//    int temp = Integer.parseInt(currentTemp);
-//    compareTemp(temp);
+
 
 
 

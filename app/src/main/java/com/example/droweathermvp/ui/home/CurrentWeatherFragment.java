@@ -101,10 +101,8 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
 
     //поставим данные в передаваемый массив TextView
     private void setDataForTV(TextView [] arrTv, SimpleDraweeView draweeView, String [] dataForTv) {
-        //с первого по 3й элемент dataForTv информация для arrTV
+        //с первого по 5й элемент (включительно) dataForTv информация для arrTV
         for (int i = 0; i < arrTv.length; i++) {
-            Log.d("CurrentWeatherFragment", "СРАБОТАЛА УСТАНОВКА ДАННЫХ " + i);
-            Log.d("setDataForTv", "значение " + i + "-того элемента в массиве Данных = "+ dataForTv[i] );
             arrTv[i].setText(dataForTv[i]);
         }
         //вытащим текущую темпеатуру для изменения цвета градусника

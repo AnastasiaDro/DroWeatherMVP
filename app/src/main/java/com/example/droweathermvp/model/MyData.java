@@ -332,6 +332,21 @@ public class MyData implements Observable {
         lastToFirst(citiesList);
         lastToFirst(datesList);
     }
+
+    public void sendDataToDb(String temp, String currentTime, String iconString) {
+        getSearchedTempStringsList().add(temp);
+        getSearchedImgStringsList().add(iconString);
+        getDatesList().add(currentTime);
+//    //удалим задвоенную информацию
+        deleteCopyAddNewList(getCurrentCity(), getCitiesList());
+       System.out.println("УСТАНОВИЛИ ДАННЫЕ ДЛЯ ИСТОРИИ ПОИСКА");
+   //поставим данные последнего найденного города в начало списка
+        lastToFirstAllArrays();
+//    //внесем данные о температуре и последнем загруженном времени в базу данных
+//    //внутри этого метода мы создаём новый поток
+      addCityDataToDb(getCurrentCity(), temp, currentTime, iconString);
+    }
+
 }
 
 
