@@ -30,12 +30,15 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     private TextView fSoonTimeText;
     private TextView sSoonTimeText;
     private TextView thSoonTimeText;
+
     private TextView fSoonTempText;
     private TextView sSoonTempText;
     private TextView thSoonTempText;
+
     private TextView fDescriptText;
     private TextView sDescriptText;
     private TextView thDescriptText;
+
     private SimpleDraweeView fSoonDraweeView;
     private SimpleDraweeView sSoonDraweeView;
     private SimpleDraweeView thSoonDraweeView;

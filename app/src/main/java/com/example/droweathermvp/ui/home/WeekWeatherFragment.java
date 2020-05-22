@@ -12,13 +12,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.droweathermvp.R;
+import com.example.droweathermvp.interfaces.FrObserver;
 import com.example.droweathermvp.interfaces.FragmentMethods;
 import com.example.droweathermvp.interfaces.Observer;
 import com.example.droweathermvp.model.MyData;
 //константы со значениями для массивов данных (время, утро, день, вечер)
 import static com.example.droweathermvp.ui.home.WeekConstants.*;
 
-public class WeekWeatherFragment extends Fragment implements FragmentMethods, Observer {
+public class WeekWeatherFragment extends Fragment implements FragmentMethods, FrObserver {
 
     //TextView по дням недели
     //TextView для времени и температур по дням и времени суток
@@ -37,16 +38,13 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
 
     //Parser, ищущий индексы для забора данных и данные
     private WeekDataPresenter weekDataP;
-    private MyData myData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO придумать как убрать нахрен отсюда модель
-
-        myData = MyData.getInstance();
-        myData.registerObserver(this);
         weekDataP = new WeekDataPresenter();
+        weekDataP.setObserver(this);
     }
 
     //создаем View
@@ -106,8 +104,6 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     //Пока сделала отдельный метод для забора данных из модели... ух
     @Override
     public void updateViewData() {
-    //должны идти по порядку, а то сломается... =(
-        weekDataP.getDataFromModel();
         setWeatherValuesToTextViews();
     }
 
@@ -125,9 +121,9 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
 
     //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
     // его из этого списка удалить
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-       // myData.removeObserver(this);
-    }
+    //уже не надо))) т.к. у weekDataPresenter-а только один наблюдатель по умолчанию
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//    }
 }

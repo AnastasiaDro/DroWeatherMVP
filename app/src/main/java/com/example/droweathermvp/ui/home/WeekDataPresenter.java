@@ -1,5 +1,8 @@
 package com.example.droweathermvp.ui.home;
 
+import com.example.droweathermvp.interfaces.FrObseravable;
+import com.example.droweathermvp.interfaces.FrObserver;
+import com.example.droweathermvp.interfaces.Observer;
 import com.example.droweathermvp.model.Constants;
 import com.example.droweathermvp.model.MyData;
 
@@ -8,8 +11,12 @@ import java.util.HashMap;
 //константы со значениями для массивов данных (время, утро, день, вечер)
 import static com.example.droweathermvp.ui.home.WeekConstants.*;
 
-public class WeekDataPresenter {
+public class WeekDataPresenter implements Observer, FrObseravable {
     private MyData myData;
+    //фрагмент-обсёрвер, из интерфейса FrObserver
+    //так мы избегаем исользования неJava-классов Фрагментов в коде
+    FrObserver frObserver;
+
     private HashMap<Integer, String[]> allWeatherDataHashMap;
     private String[] zeroArr;
     private int curTime;
@@ -154,6 +161,29 @@ public class WeekDataPresenter {
         //четвертым - температура вечером
         dataForTVArr[EVENING_TEMP] = dayEvArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
         return dataForTVArr;
+    }
+
+    @Override
+    public void setObserver(com.example.droweathermvp.interfaces.FrObserver frObserver) {
+        this.frObserver = frObserver;
+    }
+
+//    @Override
+//    public void removeObserver(com.example.droweathermvp.interfaces.FrObserver frObserver) {
+//        this.frObserver = null;
+//    }
+
+    //уведомляет фрагмент-наблюдатель
+    @Override
+    public void notifyFrObserver() {
+        frObserver.updateViewData();
+    }
+
+    //срабатывает при изменении данных в MyData
+    @Override
+    public void updateViewData() {
+        getDataFromModel();
+        notifyFrObserver();
     }
 }
 
