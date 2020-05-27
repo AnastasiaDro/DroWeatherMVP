@@ -3,8 +3,6 @@ package com.example.droweathermvp;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.droweathermvp.database.DataBaseHelper;
 import com.example.droweathermvp.model.MyData;
+import com.example.droweathermvp.model.MyDataHandler;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -43,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
     int isPressure;
     int isAutoTheme;
 
-    private MyData myData;
+    MyData myData;
     NavController navController;
+    MyDataHandler myDataHandler;
+    DataBaseHelper dbHelper;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -53,12 +55,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //инициализируем канал нотификаций
         initNotificationChannel();
-
         myData = MyData.getInstance();
         //работа с сохраненными настройками
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         checkAndLoadSettings(mSettings);
-        //Погода загрузится в HomeFragment
+
+        dbHelper = new DataBaseHelper(myData.getMyDataHandler());
 
         //инициализиируем Fresco
         Fresco.initialize(this);
@@ -88,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
         //автонастройка темы
         //TODO
         //выгрузка базы данных в myData
-        myData.loadDbDataToMyData();
+        dbHelper.loadDbDataToMyData();
         //выгрузка имен из полученных данных
-        myData.getCitiesNamesFromDbData();
+        dbHelper.getCitiesNamesFromDbData();
     }
 
     @Override
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 myData.setCurrentCity(query);
-                myData.addNewCityIfNotExist(query);
+                dbHelper.addNewCityIfNotExist(query);
                 System.out.println("второй запуск loadWeatherData, temp =");
                 navController.navigate(R.id.nav_home);
                 menu.close();
@@ -205,7 +207,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 }
 

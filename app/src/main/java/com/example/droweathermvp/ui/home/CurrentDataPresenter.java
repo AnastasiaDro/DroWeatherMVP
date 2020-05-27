@@ -3,11 +3,14 @@ package com.example.droweathermvp.ui.home;
 
 import android.util.Log;
 
+import com.example.droweathermvp.database.DataBaseHelper;
 import com.example.droweathermvp.interfaces.FrObseravable;
 import com.example.droweathermvp.interfaces.FrObserver;
 import com.example.droweathermvp.interfaces.Observer;
 import com.example.droweathermvp.model.Constants;
 import com.example.droweathermvp.model.MyData;
+import com.example.droweathermvp.model.MyDataHandler;
+
 import static com.example.droweathermvp.ui.home.CurrentWeatherConstants.*;
 
 public class CurrentDataPresenter implements Observer, FrObseravable {
@@ -17,11 +20,14 @@ public class CurrentDataPresenter implements Observer, FrObseravable {
     private FrObserver frObserver;
 
     private String[] dataArr;
+    //обработка событий
+    DataBaseHelper dataBaseHelper;
 
 
     public CurrentDataPresenter() {
         myData = MyData.getInstance();
         myData.registerObserver(this);
+        dataBaseHelper = new DataBaseHelper(myData.getMyDataHandler());
     }
 
     //получим массив данных  из MyData
@@ -59,25 +65,7 @@ public class CurrentDataPresenter implements Observer, FrObseravable {
     public void updateData() {
         getAllDataArrs();
         notifyFrObserver();
-        myData.sendDataToDb(dataArr[CURRENT_TEMP], dataArr[CURRENT_TIME], dataArr[CURRENT_ICON_STRING]);
+        dataBaseHelper.sendDataToDb(dataArr[CURRENT_TEMP], dataArr[CURRENT_TIME], dataArr[CURRENT_ICON_STRING]);
     }
-
-    //TODO вынести в отдельный метод или класс загрузку в MyData
-//    //передадим данные в массивы для города с последним поиском:
-//    //имя города
-//                    myData.getSearchedTempStringsList().add(forTemp);
-//                    myData.getSearchedImgStringsList().add(iconString);
-//                    myData.getDatesList().add(currentTime);
-//    //удалим задвоенную информацию
-//                    myData.deleteCopyAddNewList(myData.getCurrentCity(), myData.getCitiesList());
-//                    System.out.println("УСТАНОВИЛИ ДАННЫЕ ДЛЯ ИСТОРИИ ПОИСКА");
-//    //поставим данные последнего найденного города в начало списка
-//                    myData.lastToFirstAllArrays();
-//    //внесем данные о температуре и последнем загруженном времени в базу данных
-//    //внутри этого метода мы создаём новый поток
-//                    myData.addCityDataToDb(myData.getCurrentCity(), forTemp, currentTime, iconString);
-
-
-
 
 }
