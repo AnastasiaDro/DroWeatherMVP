@@ -21,13 +21,13 @@ public class DataBaseHelper {
     MyDataHandler myDataHandler;
 
 
-public DataBaseHelper (MyDataHandler myDataHandler) {
+public DataBaseHelper () {
     myData = MyData.getInstance();
     //подключимся к базе данных
     db = App.getInstance().getDatabase();
     cityDao = db.cityDao();
     citiesDataList = new ArrayList<>();
-    this.myDataHandler = myDataHandler;
+    this.myDataHandler = myData.getMyDataHandler();
     }
 
 

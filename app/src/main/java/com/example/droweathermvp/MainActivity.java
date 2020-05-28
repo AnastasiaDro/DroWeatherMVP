@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         checkAndLoadSettings(mSettings);
 
-        dbHelper = new DataBaseHelper(myData.getMyDataHandler());
+        dbHelper = new DataBaseHelper();
 
         //инициализиируем Fresco
         Fresco.initialize(this);

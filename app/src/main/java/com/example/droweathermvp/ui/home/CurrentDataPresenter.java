@@ -27,7 +27,7 @@ public class CurrentDataPresenter implements Observer, FrObseravable {
     public CurrentDataPresenter() {
         myData = MyData.getInstance();
         myData.registerObserver(this);
-        dataBaseHelper = new DataBaseHelper(myData.getMyDataHandler());
+        dataBaseHelper = new DataBaseHelper();
     }
 
     //получим массив данных  из MyData
