@@ -25,6 +25,14 @@ import java.util.Locale;
 public class MyData implements Observable {
     boolean weatherRequestIsDone;
 
+    public NavController getNavController() {
+        return navController;
+    }
+
+    public void setNavController(NavController navController) {
+        this.navController = navController;
+    }
+
     NavController navController;
     //Переменные для вывода сообщений об исключениях
     private Exception exceptionWhileLoading;
@@ -40,7 +48,7 @@ public class MyData implements Observable {
     //узнаем время
     static Date currentDate;
     int currentHour;
-    ArrayList<String> citiesList;
+    public ArrayList<String> citiesList;
 
 
     private HashMap citiesMap;
@@ -49,9 +57,9 @@ public class MyData implements Observable {
     WeatherLoader weatherLoader;
 
     //список изображений, температур и имен городов, которые мы искали
-    ArrayList<String> searchedImgStringsList;
-    ArrayList<String> searchedTempStringsList;
-    ArrayList<String> datesList;
+    public ArrayList<String> searchedImgStringsList;
+    public ArrayList<String> searchedTempStringsList;
+    public ArrayList<String> datesList;
 
     MyDataHandler myDataHandler;
 

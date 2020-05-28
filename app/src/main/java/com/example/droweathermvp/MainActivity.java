@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
     MyData myData;
     NavController navController;
-    MyDataHandler myDataHandler;
     DataBaseHelper dbHelper;
 
 
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 .setDrawerLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
+        myData.setNavController(navController);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         //автонастройка темы
