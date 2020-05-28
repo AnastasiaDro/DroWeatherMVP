@@ -3,7 +3,10 @@ package com.example.droweathermvp;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,8 +15,8 @@ import android.view.Menu;
 
 import com.example.droweathermvp.database.DataBaseHelper;
 import com.example.droweathermvp.model.MyData;
-import com.example.droweathermvp.model.MyDataHandler;
-import com.facebook.drawee.backends.pipeline.Fresco;
+import com.example.droweathermvp.receivers.BatteryReceiver;
+import com.example.droweathermvp.receivers.ConnectionReceiver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -36,7 +39,10 @@ import static com.example.droweathermvp.model.Constants.APP_PREFERENCES_LAST_SEA
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
-
+    //приёмник сообщений о состоянии сети
+    private ConnectionReceiver connectReceiver = new ConnectionReceiver();
+    //приёмник сообщений о заряде батареи
+    private BatteryReceiver batteryReceiver = new BatteryReceiver();
     //сохранение настроек интерфейса
     private SharedPreferences mSettings;
     int isWind;
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //инициализируем канал нотификаций
         initNotificationChannel();
         myData = MyData.getInstance();
@@ -61,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper = new DataBaseHelper();
 
-        //инициализиируем Fresco
-        Fresco.initialize(this);
+//        //инициализиируем Fresco
+//        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -141,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(APP_PREFERENCES_LAST_SEARCHED_CITY, myData.getCurrentCity());
         // System.out.println("OnPause" + "interfaceChanger.getIsAutoThemeChanging()" + interfaceChanger.getIsAutoThemeChanging());
         editor.apply();
+        unregisterReceiver(connectReceiver);
+        unregisterReceiver(batteryReceiver);
     }
 
     //обработка нажатий на пункты optionsMenu
@@ -206,6 +215,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //ресивер для состояния сети
+        registerReceiver(connectReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        //ресивер для состояния батареи
+        registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
+
     }
 }
 
