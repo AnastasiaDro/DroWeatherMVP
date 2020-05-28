@@ -218,8 +218,11 @@ public class MainActivity extends AppCompatActivity {
         //ресивер для состояния сети
         registerReceiver(connectReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         //ресивер для состояния батареи
-        registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
-
+        IntentFilter batIntFilter = new IntentFilter();
+        batIntFilter.addAction(Intent.ACTION_BATTERY_LOW);
+        batIntFilter.addAction(Intent.ACTION_BATTERY_OKAY);
+    //    registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
+       registerReceiver(batteryReceiver, batIntFilter);
     }
 }
 
