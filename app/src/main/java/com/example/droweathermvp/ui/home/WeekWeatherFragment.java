@@ -114,4 +114,10 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Fr
             }
         });
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        weekDataP.removeObserver();
+    }
 }

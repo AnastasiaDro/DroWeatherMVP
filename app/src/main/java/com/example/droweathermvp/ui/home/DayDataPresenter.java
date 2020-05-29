@@ -70,6 +70,12 @@ public class DayDataPresenter implements Observer, FrObseravable {
         this.frObserver = observer;
     }
 
+    @Override
+    public void removeObserver(){
+        frObserver = null;
+        myData.removeObserver(this);
+    }
+
     //уведомить наблюдателя
     @Override
     public void notifyFrObserver() {

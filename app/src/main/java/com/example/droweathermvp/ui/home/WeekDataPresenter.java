@@ -167,6 +167,12 @@ public class WeekDataPresenter implements Observer, FrObseravable {
         this.frObserver = frObserver;
     }
 
+    @Override
+    public void removeObserver(){
+        frObserver = null;
+        myData.removeObserver(this);
+    }
+
     //уведомляет фрагмент-наблюдатель
     @Override
     public void notifyFrObserver() {
@@ -180,6 +186,7 @@ public class WeekDataPresenter implements Observer, FrObseravable {
         getDataFromModel();
         notifyFrObserver();
     }
+
 }
 
 

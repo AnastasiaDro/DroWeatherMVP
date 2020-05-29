@@ -26,8 +26,8 @@ public class CurrentDataPresenter implements Observer, FrObseravable {
 
     public CurrentDataPresenter() {
         myData = MyData.getInstance();
-        myData.registerObserver(this);
         dataBaseHelper = new DataBaseHelper();
+        myData.registerObserver(this);
     }
 
     //получим массив данных  из MyData
@@ -57,6 +57,12 @@ public class CurrentDataPresenter implements Observer, FrObseravable {
     }
 
     @Override
+    public void removeObserver(){
+        frObserver = null;
+        myData.removeObserver(this);
+    }
+
+    @Override
     public void notifyFrObserver() {
         frObserver.updateViewData();
     }
@@ -66,6 +72,7 @@ public class CurrentDataPresenter implements Observer, FrObseravable {
         getAllDataArrs();
         notifyFrObserver();
         dataBaseHelper.sendDataToDb(dataArr[CURRENT_TEMP], dataArr[CURRENT_TIME], dataArr[CURRENT_ICON_STRING]);
+        Log.d("dataToDb", "температура " + dataArr[CURRENT_TEMP] + " время "+ dataArr[CURRENT_TIME]+ " строка изображения "+ dataArr[CURRENT_ICON_STRING]);
     }
 
 }

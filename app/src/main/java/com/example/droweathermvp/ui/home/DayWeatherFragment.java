@@ -115,4 +115,10 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, FrO
     public void updateViewData() {
         setWeatherValuesToTextViews();
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        dayDataP.removeObserver();
+    }
 }

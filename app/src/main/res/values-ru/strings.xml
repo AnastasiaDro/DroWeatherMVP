@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AnasDroWeather2</string>
+    <string name="app_name">AnasDroWeatherMVP</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -69,5 +69,7 @@
     <string name="receiverTitleNetworkOk">Соединение восстановлено</string>
     <string name="receiverTitleBatteryLow">Батарея почти разряжена</string>
     <string name="receiverTitleOKBattery">Достаточный заряд батареи</string>
+
+    <string name="weathBuCoordBtn">Погода по локации</string>
 
 </resources>

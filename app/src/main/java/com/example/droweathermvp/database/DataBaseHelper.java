@@ -6,6 +6,7 @@ import com.example.droweathermvp.model.App;
 import com.example.droweathermvp.model.DbLoaderThread;
 import com.example.droweathermvp.model.MyData;
 import com.example.droweathermvp.model.MyDataHandler;
+import com.facebook.common.logging.LoggingDelegate;
 
 import java.util.ArrayList;
 
@@ -37,6 +38,7 @@ public DataBaseHelper () {
         dbLoaderThread.start();
         try {
             dbLoaderThread.join();
+            Log.d("размер после выгрузки", citiesDataList.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
             Log.d("MyData", "ОШИБКА В ПОДОЖДАТЬ ПОТОК dbLoaderThread");
@@ -78,6 +80,7 @@ public DataBaseHelper () {
         for (int i = 0; i < citiesDataList.size(); i++) {
             city = citiesDataList.get(i);
             myDataHandler.addCityData(city.cityName, city.cityTemp, city.imgString, city.lastLoadTime);
+            Log.d("getCitiesFromDb", "название города" + city.cityName + " температура " + city.cityTemp +" строчка изображения "+ city.imgString +" время загрузки "+ city.lastLoadTime);
         }
     }
 
@@ -90,15 +93,18 @@ public DataBaseHelper () {
         }
 
         //добавляем данные города, создавая новый поток
-        public void addCityDataToDb(final String cityName, final String temp, final String lastLoadTime, final String imgString) {
+        public void addCityDataToDb(String cityName, String temp, String lastLoadTime, String imgString) {
+            Log.d("addCityDataToDb", cityName + " " + temp + " "+ lastLoadTime + " "+ imgString);
+            Log.d("citieaDataList", citiesDataList.toString());
             //проверим массив на пустоту
-            if (citiesDataList.size() != 0) {
+           // if (citiesDataList.size() != 0) {
                 new Thread(() -> {
+
                     cityDao.updateCityTempInDb(cityName, temp);
                     cityDao.updateCityLoadTimeInDp(cityName, lastLoadTime);
                     cityDao.updateCityImgInDb(cityName, imgString);
                 }).start();
-            }
+            //}
         }
 
 

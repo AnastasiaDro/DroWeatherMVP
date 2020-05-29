@@ -1,5 +1,7 @@
 package com.example.droweathermvp.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 
@@ -63,7 +65,7 @@ public class MyDataHandler {
         myData.searchedTempStringsList.add(cityTemp);
         myData.searchedImgStringsList.add(imgString);
         myData.datesList.add(lastLoadTime);
-
+        Log.d("MyDataHandler", "Добавлены данные в myData");
     }
 
     //проверка массива на повторы элемента и подсчёт, сколько раз он повторился

@@ -53,7 +53,7 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         imageLoader = new ImageLoader();
-        //создаём презентер
+        //получаем презентер
         currentDataP = new CurrentDataPresenter();
         currentDataP.setObserver(this);
     }
@@ -120,5 +120,11 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     @Override
     public void updateViewData() {
         setWeatherValuesToTextViews();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        currentDataP.removeObserver();
     }
 }

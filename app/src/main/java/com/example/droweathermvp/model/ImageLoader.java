@@ -8,7 +8,7 @@ public class ImageLoader {
 
         private Uri uri;
         private String uriString;
-        String imgId;
+
 
         public ImageLoader(){
             uriString ="https://openweathermap.org/img/wn/99999@2x.png";
