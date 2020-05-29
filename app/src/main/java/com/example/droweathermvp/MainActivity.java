@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.widget.Button;
 
 import com.example.droweathermvp.database.DataBaseHelper;
+import com.example.droweathermvp.location.WeatherByLocClickListener;
 import com.example.droweathermvp.model.MyData;
 import com.example.droweathermvp.receivers.BatteryReceiver;
 import com.example.droweathermvp.receivers.ConnectionReceiver;
@@ -75,13 +76,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button weathByLocBtn = findViewById(R.id.weathByLocBtn);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        weathByLocBtn.setOnClickListener(new WeatherByLocClickListener());
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each

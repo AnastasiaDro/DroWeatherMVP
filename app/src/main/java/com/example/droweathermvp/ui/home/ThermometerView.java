@@ -1,4 +1,4 @@
-package com.example.droweathermvp.ui;
+package com.example.droweathermvp.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
