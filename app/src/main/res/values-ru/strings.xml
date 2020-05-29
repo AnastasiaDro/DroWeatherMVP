@@ -32,8 +32,8 @@
     <string name="addNewCity">Add new city</string>
     <string name="autoThemeOnOff">Сhange theme automatically</string>
 
-    <string name="search">Search</string>
-    <string name="delete">Delete</string>
+    <string name="search">Найти</string>
+    <string name="delete">Удалить</string>
     <string name="search_history">Search history</string>
 
     <string name="moscow">Moscow</string>
@@ -41,31 +41,33 @@
     <string name="kazan">Kazan</string>
     <string name="sochi">Sochi</string>
 
-    <string name="tempMax">Max</string>
-    <string name="tempMin">Min</string>
+    <string name="tempMax">Макс</string>
+    <string name="tempMin">Мин</string>
 
 
-    <string name="tomorrow">Tomorrow</string>
-    <string name="anotehrDay">Another day</string>
-    <string name="enterCity">Enter city</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="anotehrDay">Другой день</string>
+    <string name="enterCity">Введите город</string>
 
-    <string name="connectionError">Connection error</string>
-    <string name="adviceConnectonError">Check network connection</string>
+    <string name="connectionError">Ошибка соединения</string>
+    <string name="adviceConnectonError">Проверьте соединение</string>
 
-    <string name="cityError">City Error</string>
-    <string name="adviceCityError">Check the city name</string>
+    <string name="cityError">Ошибка города</string>
+    <string name="adviceCityError">Проверьте имя города</string>
 
-    <string name="noData">No data</string>
-    <string name="network_error">Network Error</string>
+    <string name="noData">Нет данных</string>
+    <string name="network_error">Ошибка сети</string>
 
-    <string name="date">Date</string>
-    <string name="morning">Morning</string>
-    <string name="afternoon">Afternoon</string>
-    <string name="evening">Evening</string>
+    <string name="date">Дата</string>
+    <string name="morning">Утро</string>
+    <string name="afternoon">День</string>
+    <string name="evening">Вечер</string>
 
-    <string name="searchHistory">Search history</string>
-    <string name="recieverTitleAir">Airplane mode</string>
-    <string name="receiverTitleNetwork">No network</string>
-    <string name="recieverTitleBattery">Low battery</string>
+    <string name="searchHistory">История поиска</string>
+    <string name="receiverTitleAir">Airplane mode</string>
+    <string name="receiverTitleNetworkLost">Соединение потеряно</string>
+    <string name="receiverTitleNetworkOk">Соединение восстановлено</string>
+    <string name="receiverTitleBatteryLow">Батарея почти разряжена</string>
+    <string name="receiverTitleOKBattery">Достаточный заряд батареи</string>
 
 </resources>

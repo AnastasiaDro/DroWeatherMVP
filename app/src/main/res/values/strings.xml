@@ -64,8 +64,10 @@
     <string name="evening">Evening</string>
 
     <string name="searchHistory">Search history</string>
-    <string name="recieverTitleAir">Airplane mode</string>
-    <string name="receiverTitleNetwork">No network</string>
-    <string name="recieverTitleBattery">Low battery</string>
+    <string name="receiverTitleAir">Airplane mode</string>
+    <string name="receiverTitleNetworkLost">connection is lost</string>
+    <string name="receiverTitleNetworkOk">connection is restored</string>
+    <string name="receiverTitleBatteryLow">Low battery</string>
+    <string name="receiverTitleOKBattery">Battery OK</string>
 
 </resources>

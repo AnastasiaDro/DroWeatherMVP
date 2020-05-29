@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.example.droweathermvp.R;
+
 
 public class ConnectionReceiver extends android.content.BroadcastReceiver {
     private static final String TAG = "MyСonnectionReceiver";
-    private String changedConnection = "Проверьте интернет-соединение";
+    private String changedConnection;
     private int messageId = 1000;
     NotificationMaker notiMaker = new NotificationMaker();
     String channelId = "2";
@@ -18,6 +20,7 @@ public class ConnectionReceiver extends android.content.BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         notiMaker.buildNotification(context, channelId, checkConnectionStatus(context), messageId);
+        messageId++;
     }
 
 
@@ -30,10 +33,10 @@ public class ConnectionReceiver extends android.content.BroadcastReceiver {
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
 
-        if (isConnected == true){
-            changedConnection = "Подключение восстановлено";
+        if (isConnected){
+            changedConnection = context.getString(R.string.receiverTitleNetworkOk);
         } else {
-            changedConnection = "Подключение потеряно";
+            changedConnection = context.getString(R.string.receiverTitleNetworkLost);
         }
         return changedConnection;
     }
