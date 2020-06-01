@@ -6,12 +6,12 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface IOpenWeather {
+public interface ByCoordOpenWeather {
 
     @GET("data/2.5/forecast")
         //Прописываем нашу модель
-    Call<WeatherRequestRestModel> loadWeather(@Query("q") String city,
+    Call<WeatherRequestRestModel> loadWeather(@Query("lat") String latitude,
+                                              @Query("lon") String longitude,
                                               @Query("appid") String keyApi
     );
-
 }

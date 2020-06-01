@@ -54,7 +54,17 @@ public class MyData implements Observable {
     public ArrayList<String> citiesList;
 
     String currentCity;
+
+    //для загрузки по координатам
+    String latitude;
+    String longitude;
+
     private ImageLoader imageLoader;
+
+    public WeatherLoader getWeatherLoader() {
+        return weatherLoader;
+    }
+
     WeatherLoader weatherLoader;
 
     //список изображений, температур и имен городов, которые мы искали
@@ -74,6 +84,22 @@ public class MyData implements Observable {
     }
 
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     private MyData() {
         currentCity = "Moscow";
         currentHour = 0;
@@ -92,6 +118,10 @@ public class MyData implements Observable {
         searchedTempStringsList = new ArrayList<>();
         datesList = new ArrayList<>();
         myDataHandler = new MyDataHandler(this);
+        //базовые координаты, пока они не переопределены
+        //это Москва
+        latitude = 	"55.753960";
+        longitude = "37.620393";
     }
 
     //сделаем наблюдаемый класс сингл-тоном

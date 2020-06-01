@@ -21,6 +21,8 @@ import retrofit2.Response;
 public class WeatherLoader {
     //Засечем время выполнения
     private String city;
+    String latitude;
+    String longitude;
     private MyData myData;
     private HashMap<Integer, String[]> takenWeatherData;
     Context context;
@@ -38,13 +40,15 @@ public class WeatherLoader {
     public WeatherLoader(Context context) {
         this.myData = myData.getInstance();
         city = myData.getCurrentCity();
+        latitude = myData.getLatitude();
+        longitude = myData.getLongitude();
         takenWeatherData = myData.getAllWeatherDataHashMap();
         apiKey = "cf6eb93358473e7ee159a01606140722";
         this.context = context;
         e = new Exception();
     }
 
-    public void loadWeatherData() {
+    public void loadWeatherByCity() {
         OpenWeatherRepo.getInstance().getAPI().loadWeather(city + ",RU", apiKey)
                 .enqueue(new Callback<WeatherRequestRestModel>() {
                     @Override
@@ -79,6 +83,43 @@ public class WeatherLoader {
                     }
                 });
     }
+
+    public void loadWeatherByCoord(){
+        OpenWeatherRepo.getInstance().getAPI_COORD().loadWeather(latitude, longitude, apiKey)
+                .enqueue(new Callback<WeatherRequestRestModel>() {
+                    @Override
+                    public void onResponse(@NonNull Call<WeatherRequestRestModel> call, @NonNull Response<WeatherRequestRestModel> response) {
+                        if (response.body() != null && response.isSuccessful()) {
+                            renderWeather(response.body());
+                        } else {
+                            //если код не в диапазоне [200...300) то случилась ошибка
+                            //здесь её обрабатываем
+                            //Не работает
+                            myData.setExceptionWhileLoading(e, R.string.cityError, R.string.adviceCityError);
+                            if (response.code() == 500) {
+                                //Произошёл Internal Server Error, обраюотать
+                            } else if (response.code() == 401) {
+                                //не авторизованы, обработать
+                                // и т.д.
+                                //не работает, так как приходит Responce с сервера
+//                            } else if (response.code() == 404) {
+//                                myData.setExceptionWhileLoading(e, R.string.cityError, R.string.adviceCityError);
+                            }
+                        }
+                        myData.notifyObservers();
+                        Log.d("WeatherLOADER СРАБОТАЛ", "СРАБОТАЛ");
+                    }
+
+                    @Override
+                    public void onFailure(Call<WeatherRequestRestModel> call, Throwable t) {
+                        myData.setExceptionWhileLoading(e, R.string.connectionError, R.string.adviceConnectonError);
+                        showExceptionAlert();
+                        myData.setException(null);
+                        myData.notifyObservers();
+                    }
+                });
+    }
+
 
     private void renderWeather(WeatherRequestRestModel model) {
         for (int i = 0; i < 40; i++) {

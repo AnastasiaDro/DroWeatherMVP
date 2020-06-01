@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.widget.Button;
 
 import com.example.droweathermvp.database.DataBaseHelper;
+import com.example.droweathermvp.location.MyLocationListener;
 import com.example.droweathermvp.location.WeatherByLocClickListener;
 import com.example.droweathermvp.model.MyData;
 import com.example.droweathermvp.receivers.BatteryReceiver;
@@ -55,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     DataBaseHelper dbHelper;
 
+    LocationManager locationManager;
+    MyLocationListener myLocationListener;
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -78,7 +83,11 @@ public class MainActivity extends AppCompatActivity {
 
         //кнопка поиска по локации
         Button weathByLocBtn = findViewById(R.id.weathByLocBtn);
-        weathByLocBtn.setOnClickListener(new WeatherByLocClickListener(this));
+
+        //задаём location manager
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        myLocationListener = new MyLocationListener();
+        weathByLocBtn.setOnClickListener(new WeatherByLocClickListener(this, locationManager, myLocationListener));
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -148,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
         unregisterReceiver(connectReceiver);
         unregisterReceiver(batteryReceiver);
+        //locationManager.removeUpdates(myLocationListener);
     }
 
     //обработка нажатий на пункты optionsMenu
@@ -213,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
         batIntFilter.addAction(Intent.ACTION_BATTERY_OKAY);
     //    registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
        registerReceiver(batteryReceiver, batIntFilter);
+
     }
 }
 
