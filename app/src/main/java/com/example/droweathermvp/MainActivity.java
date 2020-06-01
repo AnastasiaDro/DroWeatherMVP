@@ -75,8 +75,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //кнопка поиска по локации
         Button weathByLocBtn = findViewById(R.id.weathByLocBtn);
-        weathByLocBtn.setOnClickListener(new WeatherByLocClickListener());
+        weathByLocBtn.setOnClickListener(new WeatherByLocClickListener(this));
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -117,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                 searchView.setIconified(true);
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -167,14 +168,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-//    @Override
-//    public void updateInterfaceViewData() {
-//        isWind = interfaceChanger.getIsWind();
-//        isPressure = interfaceChanger.getIsPressure();
-//        isAutoTheme = interfaceChanger.getIsAutoThemeChanging();
-//    }
-
 
     //проверим и загрузим сохраненные настройки
     private void checkAndLoadSettings(SharedPreferences mSettings) {

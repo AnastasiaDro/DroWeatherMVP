@@ -32,18 +32,20 @@ public class WeatherLoader {
     private String gotWind;
     private String gotRain;
     private String gotIconIdStr;
+    private String apiKey;
 
     //Конструктор
     public WeatherLoader(Context context) {
         this.myData = myData.getInstance();
         city = myData.getCurrentCity();
         takenWeatherData = myData.getAllWeatherDataHashMap();
+        apiKey = "cf6eb93358473e7ee159a01606140722";
         this.context = context;
         e = new Exception();
     }
 
     public void loadWeatherData() {
-        OpenWeatherRepo.getInstance().getAPI().loadWeather(city + ",RU", "cf6eb93358473e7ee159a01606140722")
+        OpenWeatherRepo.getInstance().getAPI().loadWeather(city + ",RU", apiKey)
                 .enqueue(new Callback<WeatherRequestRestModel>() {
                     @Override
                     public void onResponse(@NonNull Call<WeatherRequestRestModel> call, @NonNull Response<WeatherRequestRestModel> response) {
