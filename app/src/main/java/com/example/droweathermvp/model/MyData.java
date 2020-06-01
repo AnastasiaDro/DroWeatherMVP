@@ -154,8 +154,10 @@ public class MyData implements Observable {
     //уведомить наблюдателей
     @Override
     public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.updateData();
+        if (allWeatherDataHashMap.size() > 0) {
+            for (Observer observer : observers) {
+                observer.updateData();
+            }
         }
     }
 

@@ -70,7 +70,7 @@ public class WeekDataPresenter implements Observer, FrObseravable {
     }
 
     //выгружаем данные из модели для последующей обработки
-    public void getDataFromModel(){
+    public void getDataFromModel() {
         takeAllIndexesForDaysData();
         getStringsArraysWithDaysData();
     }
@@ -92,7 +92,6 @@ public class WeekDataPresenter implements Observer, FrObseravable {
         }
         return dayBeginningIndexesArr;
     }
-
 
 
     //получим начальные индексы, по которым будем выбирать из всех выгруженных данных нужные данные по ближайшим дням
@@ -133,22 +132,22 @@ public class WeekDataPresenter implements Observer, FrObseravable {
     //получим данные для конкретных дней
 
     //массив данных для текстВью первого дня
-    public String [] takeFirstDayDataForTVArr(){
+    public String[] takeFirstDayDataForTVArr() {
         return takeDayDataArr(fstDayMorArr, fstDayAftArr, fstDayEvArr);
     }
 
     //массив  данных для текствью для второго дня
-    public String [] takeSecondDayDataForTVArr(){
+    public String[] takeSecondDayDataForTVArr() {
         return takeDayDataArr(scndDayMorArr, scndDayAftArr, scndDayEvArr);
     }
 
     //массив  данных для текстВью третьего дня
-    public String [] takeThirdDayDataForTVArr(){
+    public String[] takeThirdDayDataForTVArr() {
         return takeDayDataArr(thrdDayMorArr, thrdDayAftArr, thrdDayEvArr);
     }
 
     //получение данных для textView для конкретного дня из от общего массива данных этого дня
-    private String[] takeDayDataArr(String[] dayMorArr, String [] dayAftArr, String [] dayEvArr){
+    private String[] takeDayDataArr(String[] dayMorArr, String[] dayAftArr, String[] dayEvArr) {
         String[] dataForTVArr = new String[4];
         //первым идёт время
         dataForTVArr[DAY_DATA] = dayMorArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(0, 10);
@@ -168,7 +167,7 @@ public class WeekDataPresenter implements Observer, FrObseravable {
     }
 
     @Override
-    public void removeObserver(){
+    public void removeObserver() {
         frObserver = null;
         myData.removeObserver(this);
     }
@@ -183,10 +182,8 @@ public class WeekDataPresenter implements Observer, FrObseravable {
     // если на этом фрагменте находишься
     @Override
     public void updateData() {
-        if (myData.getAllWeatherDataHashMap().size()>0) {
-            getDataFromModel();
+        getDataFromModel();
         notifyFrObserver();
-        }
     }
 
 }
