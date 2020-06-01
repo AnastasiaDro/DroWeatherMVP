@@ -86,9 +86,11 @@ public class DayDataPresenter implements Observer, FrObseravable {
     // если на этом фрагменте находишься
     @Override
     public void updateData() {
-        getAllDataArrs();
-        if (frObserver != null) {
-            notifyFrObserver();
+        if (myData.getAllWeatherDataHashMap().size() > 0) {
+            getAllDataArrs();
+            if (frObserver != null) {
+                notifyFrObserver();
+            }
         }
     }
 

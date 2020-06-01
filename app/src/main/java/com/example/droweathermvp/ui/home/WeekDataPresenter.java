@@ -183,8 +183,10 @@ public class WeekDataPresenter implements Observer, FrObseravable {
     // если на этом фрагменте находишься
     @Override
     public void updateData() {
-        getDataFromModel();
+        if (myData.getAllWeatherDataHashMap().size()>0) {
+            getDataFromModel();
         notifyFrObserver();
+        }
     }
 
 }

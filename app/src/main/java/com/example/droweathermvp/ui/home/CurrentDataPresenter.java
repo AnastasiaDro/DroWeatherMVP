@@ -9,7 +9,6 @@ import com.example.droweathermvp.interfaces.FrObserver;
 import com.example.droweathermvp.interfaces.Observer;
 import com.example.droweathermvp.model.Constants;
 import com.example.droweathermvp.model.MyData;
-import com.example.droweathermvp.model.MyDataHandler;
 
 import static com.example.droweathermvp.ui.home.CurrentWeatherConstants.*;
 
@@ -31,20 +30,22 @@ public class CurrentDataPresenter implements Observer, FrObseravable {
     }
 
     //получим массив данных  из MyData
-    private void getAllDataArrs(){
+    private void getAllDataArrs() {
         dataArr = new String[CURRENT_DATA_ARR_SIZE];
-        String[] loadedDataArr = myData
-                .getAllWeatherDataHashMap()
-                .get(CURRENT_DATA_KEY_IN_HASHMAP);
-        dataArr[CURRENT_TIME] = loadedDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(0, 16);
-        dataArr[CURRENT_TEMP] = loadedDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY];
-                //currentTemp.concat(" \u2103");
-        dataArr[CURRENT_DESCRIPT_STRING] = loadedDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
-        dataArr[CURRENT_ICON_STRING] = loadedDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
-        dataArr[CURRENT_WIND] = loadedDataArr[Constants.WIND_KEY_IN_WEATHERDATA_ARRAY];
-        dataArr[CURRENT_PRESSURE] = loadedDataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY];
-        dataArr[CURRENT_CITY] = myData.getCurrentCity();
-        Log.d("CurrentDataPresenter", "getAllDataArrs() размер массива "+dataArr.length);
+        if (myData.getAllWeatherDataHashMap().size() > 0) {
+            String[] loadedDataArr = myData
+                    .getAllWeatherDataHashMap()
+                    .get(CURRENT_DATA_KEY_IN_HASHMAP);
+            dataArr[CURRENT_TIME] = loadedDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(0, 16);
+            dataArr[CURRENT_TEMP] = loadedDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY];
+            //currentTemp.concat(" \u2103");
+            dataArr[CURRENT_DESCRIPT_STRING] = loadedDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
+            dataArr[CURRENT_ICON_STRING] = loadedDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
+            dataArr[CURRENT_WIND] = loadedDataArr[Constants.WIND_KEY_IN_WEATHERDATA_ARRAY];
+            dataArr[CURRENT_PRESSURE] = loadedDataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY];
+            dataArr[CURRENT_CITY] = myData.getCurrentCity();
+            Log.d("CurrentDataPresenter", "getAllDataArrs() размер массива " + dataArr.length);
+        }
     }
 
     public String[] getCurrentDataArr() {
@@ -69,10 +70,12 @@ public class CurrentDataPresenter implements Observer, FrObseravable {
 
     @Override
     public void updateData() {
-        getAllDataArrs();
-        notifyFrObserver();
-        dataBaseHelper.sendDataToDb(dataArr[CURRENT_TEMP], dataArr[CURRENT_TIME], dataArr[CURRENT_ICON_STRING]);
-        Log.d("dataToDb", "температура " + dataArr[CURRENT_TEMP] + " время "+ dataArr[CURRENT_TIME]+ " строка изображения "+ dataArr[CURRENT_ICON_STRING]);
+        if (myData.getAllWeatherDataHashMap().size()>0) {
+            getAllDataArrs();
+            notifyFrObserver();
+            dataBaseHelper.sendDataToDb(dataArr[CURRENT_TEMP], dataArr[CURRENT_TIME], dataArr[CURRENT_ICON_STRING]);
+            Log.d("dataToDb", "температура " + dataArr[CURRENT_TEMP] + " время " + dataArr[CURRENT_TIME] + " строка изображения " + dataArr[CURRENT_ICON_STRING]);
+        }
     }
 
 }

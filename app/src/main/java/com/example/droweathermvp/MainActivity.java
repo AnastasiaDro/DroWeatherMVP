@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         //задаём location manager
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        myLocationListener = new MyLocationListener();
+        myLocationListener = new MyLocationListener(this);
         weathByLocBtn.setOnClickListener(new WeatherByLocClickListener(this, locationManager, myLocationListener));
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

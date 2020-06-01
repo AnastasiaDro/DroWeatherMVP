@@ -115,7 +115,9 @@ public class WeatherLoader {
                         myData.setExceptionWhileLoading(e, R.string.connectionError, R.string.adviceConnectonError);
                         showExceptionAlert();
                         myData.setException(null);
-                        myData.notifyObservers();
+                        if (takenWeatherData.size()>0) {
+                            myData.notifyObservers();
+                        }
                     }
                 });
     }

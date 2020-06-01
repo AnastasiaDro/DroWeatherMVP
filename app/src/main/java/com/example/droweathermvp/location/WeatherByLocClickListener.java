@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,6 +20,10 @@ import android.os.CancellationSignal;
 import androidx.core.app.ActivityCompat;
 
 import com.example.droweathermvp.model.MyData;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -33,6 +39,9 @@ public class WeatherByLocClickListener implements View.OnClickListener {
     String longitude; //долгота
     int counter;
     MyData myData;
+
+
+
 
     public WeatherByLocClickListener(Activity activity, LocationManager locationManager, MyLocationListener myLocationListener){
         this.activity = activity;
@@ -103,4 +112,6 @@ public class WeatherByLocClickListener implements View.OnClickListener {
                     PERMISSION_REQUEST_CODE);
         }
     }
+
+
 }
