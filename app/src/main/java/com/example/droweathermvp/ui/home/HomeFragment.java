@@ -1,9 +1,11 @@
 package com.example.droweathermvp.ui.home;
 
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +14,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.droweathermvp.R;
 import com.example.droweathermvp.interfaces.ActivMethods;
+import com.example.droweathermvp.location.MyLocationListener;
+import com.example.droweathermvp.location.WeatherByLocClickListener;
 import com.example.droweathermvp.model.MyData;
 import com.example.droweathermvp.rest.WeatherLoader;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 public class HomeFragment extends Fragment implements ActivMethods {
     //класс Model

@@ -16,6 +16,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.os.CancellationSignal;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
@@ -56,6 +57,7 @@ public class WeatherByLocClickListener implements View.OnClickListener {
     public void onClick(View v) {
         requestPermissions();
         requestLocation();
+        Toast.makeText(activity, "Сработал OnClick", Toast.LENGTH_LONG);
     }
 
     private void requestPermissions(){
